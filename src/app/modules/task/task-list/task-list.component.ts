@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TaskItemComponent } from '../task-item/task-item.component';
+import { TaskItem } from '../types/task.typings';
 
 @Component({
   selector: 'app-task-list',
@@ -9,4 +10,6 @@ import { TaskItemComponent } from '../task-item/task-item.component';
   styleUrl: './task-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskListComponent {}
+export class TaskListComponent {
+  @Input() public taskList: TaskItem[];
+}

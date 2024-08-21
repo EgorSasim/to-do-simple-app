@@ -1,1 +1,3 @@
-<p>task-page works!</p>
+@if (tasks$ | async; as tasks) {
+<app-task-list [taskList]="tasks"></app-task-list>
+}

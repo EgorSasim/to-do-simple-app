@@ -1,1 +1,3 @@
-<p>task-list works!</p>
+@for (task of taskList; track task.id) {
+<app-task-item [item]="task"></app-task-item>
+}

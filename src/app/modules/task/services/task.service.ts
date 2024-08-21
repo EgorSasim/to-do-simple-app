@@ -4,9 +4,7 @@ import { TaskApiService } from '../../../api/task/task-api.service';
 import { TaskItem } from '../types/task.typings';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: TaskPageComponent,
-})
+@Injectable()
 export class TaskService {
   constructor(private taskApiService: TaskApiService) {}
 
