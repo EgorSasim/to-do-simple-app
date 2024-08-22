@@ -1,0 +1,20 @@
+.task-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.02rem solid black;
+  border-radius: 0.4rem;
+  padding: 0.8rem;
+  cursor: pointer;
+
+  &.mod-completed {
+    text-decoration: line-through;
+  }
+}
+
+.task-item-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 12rem;
+}

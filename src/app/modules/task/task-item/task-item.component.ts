@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { TaskItem } from '../types/task.typings';
 
 @Component({
@@ -11,4 +17,24 @@ import { TaskItem } from '../types/task.typings';
 })
 export class TaskItemComponent {
   @Input() public item: TaskItem;
+
+  @Output() public completeTaskEmit: EventEmitter<TaskItem['id']> =
+    new EventEmitter();
+
+  @Output() public removeTaskEmit: EventEmitter<TaskItem['id']> =
+    new EventEmitter();
+
+  public completeTask(event: Event, taskId: TaskItem['id']) {
+    event.stopPropagation();
+    this.completeTaskEmit.emit(taskId);
+  }
+
+  public removeTask(event: Event, taskId: TaskItem['id']) {
+    event.stopPropagation();
+    this.removeTaskEmit.emit(taskId);
+  }
+
+  public navigateTaskEditPage(): void {
+    console.log('go to task edit page');
+  }
 }

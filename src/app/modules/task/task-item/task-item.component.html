@@ -1,4 +1,22 @@
-<div>
-  <header>{{ item.name }}</header>
-  <h5>{{ item.description }}</h5>
+<div
+  class="task-item"
+  [class.mod-completed]="item.completed"
+  (click)="navigateTaskEditPage()"
+>
+  <section class="task-item-name">
+    {{ item.name }}
+  </section>
+
+  <section class="task-item-controls">
+    <button
+      class="btn btn-success"
+      [style.disabled]="item.completed"
+      (click)="completeTask($event, item.id)"
+    >
+      complete
+    </button>
+    <button class="btn btn-danger" (click)="removeTask($event, item.id)">
+      remove
+    </button>
+  </section>
 </div>
