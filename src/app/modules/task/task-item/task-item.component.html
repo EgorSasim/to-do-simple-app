@@ -1,24 +1,23 @@
-@if (item(); as item) {
+@let taskItem = item();
 <div
   class="task-item"
-  [class.mod-completed]="item.completed"
+  [class.mod-completed]="taskItem.completed"
   (click)="navigateTaskEditPage()"
 >
   <section class="task-item-name">
-    {{ item.name }}
+    {{ taskItem.name }}
   </section>
 
   <section class="task-item-controls">
     <button
       class="btn btn-success"
-      [style.disabled]="item.completed"
-      (click)="completeTask($event, item.id)"
+      [style.disabled]="taskItem.completed"
+      (click)="completeTask($event, taskItem.id)"
     >
       complete
     </button>
-    <button class="btn btn-danger" (click)="removeTask($event, item.id)">
+    <button class="btn btn-danger" (click)="removeTask($event, taskItem.id)">
       remove
     </button>
   </section>
 </div>
-}
