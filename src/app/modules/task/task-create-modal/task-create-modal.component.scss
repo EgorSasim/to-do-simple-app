@@ -1,0 +1,31 @@
+.task-create-modal {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+}
+
+.task-create-modal-controls-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-create-modal-control {
+  display: block;
+  width: 100%;
+}
+
+.task-create-modal-footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 6.4rem;
+}
+
+.task-create-modal-footer__control {
+  display: block;
+  flex: 1;
+}

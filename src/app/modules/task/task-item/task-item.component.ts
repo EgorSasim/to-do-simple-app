@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  model,
   Output,
 } from '@angular/core';
 import { TaskItem } from '../types/task.typings';

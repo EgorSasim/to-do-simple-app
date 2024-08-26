@@ -1,5 +1,74 @@
-<div>
-  <h1>Create modal</h1>
-  <input type="text" placeholder="write smth" />
-  <button (click)="activeModal.close('on modal complete')">Complete</button>
+<div class="task-create-modal">
+  <input
+    class="task-create-modal-control"
+    type="text"
+    placeholder="Task title"
+  />
+  <textarea
+    class="task-create-modal-control"
+    type="text"
+    placeholder="Task description(optional)"
+  ></textarea>
+  <div class="task-create-modal-controls-wrap">
+    <div>
+      <label>Start date</label>
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              ngbDatepicker
+              #d="ngbDatepicker"
+            />
+            <button
+              class="btn btn-outline-secondary bi bi-calendar3"
+              (click)="d.toggle()"
+              type="button"
+            >
+              &#8942;
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div>
+      <label>End date</label>
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              ngbDatepicker
+              #d2="ngbDatepicker"
+            />
+            <button
+              class="btn btn-outline-secondary bi bi-calendar3"
+              (click)="d2.toggle()"
+              type="button"
+            >
+              &#8942;
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="task-create-modal-footer">
+    <button
+      class="task-create-modal-footer__control btn btn-danger"
+      (click)="activeModal.close()"
+    >
+      Close
+    </button>
+    <button
+      class="task-create-modal-footer__control btn btn-primary"
+      (click)="activeModal.close('on modal complete')"
+    >
+      Complete
+    </button>
+  </footer>
 </div>

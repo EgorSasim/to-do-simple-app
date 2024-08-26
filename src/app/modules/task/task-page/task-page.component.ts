@@ -28,6 +28,8 @@ export class TaskPageComponent {
       .open(TaskCreateModalComponent, {
         size: 'lg',
         centered: true,
+        animation: true,
+        backdrop: true,
       })
       .closed.subscribe((res) => {
         console.log('on close result: ', res);

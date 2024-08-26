@@ -1,3 +1,5 @@
+import { ConvertToForm } from '../../../helpers/form';
+
 export interface TaskItem {
   id: number;
   name: string;
@@ -6,3 +8,5 @@ export interface TaskItem {
   startDate?: Date;
   endDate?: Date;
 }
+
+export type TaskItemForm = ConvertToForm<TaskItem>;
