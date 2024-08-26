@@ -2,8 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
-  model,
+  input,
   Output,
 } from '@angular/core';
 import { TaskItem } from '../types/task.typings';
@@ -17,7 +16,7 @@ import { TaskItem } from '../types/task.typings';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskItemComponent {
-  @Input() public item: TaskItem;
+  public item = input<TaskItem>();
 
   @Output() public completeTaskEmit: EventEmitter<TaskItem['id']> =
     new EventEmitter();
