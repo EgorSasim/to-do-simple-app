@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { TaskItem } from '../types/task.typings';
 
@@ -12,4 +18,20 @@ import { TaskItem } from '../types/task.typings';
 })
 export class TaskListComponent {
   public taskList = input<TaskItem[]>();
+  public removeTaskEmit = output<TaskItem['id']>();
+  public completeTaskEmit = output<TaskItem['id']>();
+
+  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
+  public triggerChangeDetection(): void {
+    this.changeDetectorRef.detectChanges();
+  }
+
+  public removeTask(taskId: TaskItem['id']): void {
+    this.removeTaskEmit.emit(taskId);
+  }
+
+  public completeTask(taskId: TaskItem['id']): void {
+    this.completeTaskEmit.emit(taskId);
+  }
 }

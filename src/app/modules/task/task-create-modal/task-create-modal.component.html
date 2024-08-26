@@ -1,14 +1,18 @@
+@let controls = formGroup.controls;
 <div class="task-create-modal">
-  <input
+  @let nameControl = controls.name;
+  <app-input
     class="task-create-modal-control"
-    type="text"
-    placeholder="Task title"
-  />
+    [placeHolder]="'Task name'"
+    [control]="nameControl"
+  ></app-input>
   <textarea
     class="task-create-modal-control"
     type="text"
     placeholder="Task description(optional)"
+    [formControl]="controls.description"
   ></textarea>
+
   <div class="task-create-modal-controls-wrap">
     <div>
       <label>Start date</label>
@@ -21,6 +25,7 @@
               name="dp"
               ngbDatepicker
               #d="ngbDatepicker"
+              [formControl]="controls.startDate"
             />
             <button
               class="btn btn-outline-secondary bi bi-calendar3"
@@ -44,6 +49,7 @@
               name="dp"
               ngbDatepicker
               #d2="ngbDatepicker"
+              [formControl]="controls.endDate"
             />
             <button
               class="btn btn-outline-secondary bi bi-calendar3"
@@ -66,7 +72,7 @@
     </button>
     <button
       class="task-create-modal-footer__control btn btn-primary"
-      (click)="activeModal.close('on modal complete')"
+      (click)="createTask()"
     >
       Complete
     </button>

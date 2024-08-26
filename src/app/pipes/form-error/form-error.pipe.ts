@@ -8,7 +8,6 @@ import { ValidationErrors } from '@angular/forms';
 })
 export class FormErrorPipe implements PipeTransform {
   public transform(value: ValidationErrors) {
-    console.log('value: ', value);
-    return FORM_ERROR_CODE[value[0]];
+    return FORM_ERROR_CODE[Object.keys(value)[0]];
   }
 }

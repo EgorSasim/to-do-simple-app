@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   input,
+  output,
   Output,
 } from '@angular/core';
 import { TaskItem } from '../types/task.typings';
@@ -18,11 +19,9 @@ import { TaskItem } from '../types/task.typings';
 export class TaskItemComponent {
   public item = input<TaskItem>();
 
-  @Output() public completeTaskEmit: EventEmitter<TaskItem['id']> =
-    new EventEmitter();
+  public completeTaskEmit = output<TaskItem['id']>();
 
-  @Output() public removeTaskEmit: EventEmitter<TaskItem['id']> =
-    new EventEmitter();
+  public removeTaskEmit = output<TaskItem['id']>();
 
   public completeTask(event: Event, taskId: TaskItem['id']) {
     event.stopPropagation();

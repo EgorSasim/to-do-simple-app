@@ -1,5 +1,10 @@
 <div class="task-list">
   @for (task of taskList(); track task.id) {
-  <app-task-item class="task-list-item" [item]="task"></app-task-item>
+  <app-task-item
+    class="task-list-item"
+    [item]="task"
+    (removeTaskEmit)="removeTask($event)"
+    (completeTaskEmit)="completeTask($event)"
+  ></app-task-item>
   }
 </div>

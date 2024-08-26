@@ -1,0 +1,11 @@
+<div class="input">
+  <input
+    class="input-control"
+    placeholder="{{ placeHolder() }}"
+    [formControl]="control()"
+    type="text"
+  />
+  @if (control().touched && control().errors) {
+  <div class="input-error">{{ control().errors | formError }}</div>
+  }
+</div>

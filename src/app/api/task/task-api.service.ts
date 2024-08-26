@@ -17,7 +17,8 @@ export class TaskApiService {
   }
 
   public createTask(task: Omit<TaskDto, 'id'>): Observable<TaskDto['id']> {
-    const id = Math.max(...TASKS.map((task) => task.id)) + 1;
+    const lastIndex = Math.max(...TASKS.map((task) => task.id));
+    const id = isFinite(lastIndex) ? lastIndex + 1 : 0;
     const createdTask: TaskDto = { ...task, id: id };
     TASKS.push(createdTask);
     return of(id);
@@ -29,10 +30,12 @@ export class TaskApiService {
     return of();
   }
 
-  public editTask(task: TaskDto): Observable<void> {
-    const taskToUpdateIndex = TASKS.findIndex((task) => task.id === task.id);
+  public editTask(task: Partial<TaskDto> & { id: number }): Observable<void> {
+    const taskToUpdateIndex = TASKS.findIndex(
+      (taskItem) => taskItem.id === task.id
+    );
     if (~taskToUpdateIndex) {
-      TASKS[taskToUpdateIndex] = { ...task };
+      TASKS[taskToUpdateIndex] = { ...TASKS[taskToUpdateIndex], ...task };
     }
     return of();
   }

@@ -2,29 +2,37 @@ import { Injectable } from '@angular/core';
 import { TaskPageComponent } from '../task-page/task-page.component';
 import { TaskApiService } from '../../../api/task/task-api.service';
 import { TaskItem } from '../types/task.typings';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, merge, Observable, switchMap, tap } from 'rxjs';
 
 @Injectable()
 export class TaskService {
+  private updateTasks$: BehaviorSubject<void> = new BehaviorSubject(null);
+
   constructor(private taskApiService: TaskApiService) {}
 
-  public getTasks(): Observable<TaskItem[]> {
-    return this.taskApiService.getTasks();
-  }
+  public tasks$: Observable<TaskItem[]> = this.updateTasks$.pipe(
+    switchMap(() => this.taskApiService.getTasks())
+  );
 
   public getTaskById(id: TaskItem['id']): Observable<TaskItem> {
     return this.taskApiService.getTaskById(id);
   }
 
   public createTask(task: Omit<TaskItem, 'id'>): Observable<TaskItem['id']> {
-    return this.taskApiService.createTask(task);
+    return this.taskApiService
+      .createTask(task)
+      .pipe(tap(() => this.updateTasks$.next(null)));
   }
 
   public removeTask(id: TaskItem['id']): Observable<void> {
-    return this.taskApiService.removeTask(id);
+    return this.taskApiService
+      .removeTask(id)
+      .pipe(tap(() => this.updateTasks$.next(null)));
   }
 
-  public editTask(task: TaskItem): Observable<void> {
-    return this.taskApiService.editTask(task);
+  public editTask(task: Partial<TaskItem> & { id: number }): Observable<void> {
+    return this.taskApiService
+      .editTask(task)
+      .pipe(tap(() => this.updateTasks$.next(null)));
   }
 }
