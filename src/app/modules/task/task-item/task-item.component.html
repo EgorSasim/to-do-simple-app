@@ -5,8 +5,11 @@
   </section>
 
   <section>
-    {{ taskItem.startDate | date : "yyyy/L/dd" }} -
-    {{ taskItem.endDate | date : "yyyy/L/dd" }}
+    @if (taskItem.startDate) {
+    {{ taskItem.startDate | controlDate | date : "yyyy/L/dd" }}
+    } - @if (taskItem.endDate) {
+    {{ taskItem.endDate | controlDate | date : "yyyy/L/dd" }}
+    }
   </section>
 
   <section class="task-item-controls">

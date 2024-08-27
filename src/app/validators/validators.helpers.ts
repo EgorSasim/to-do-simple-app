@@ -1,4 +1,4 @@
-import { DateControlFormat } from './validators.typings';
+import { DateControlFormat } from '../modules/task/types/task.typings';
 
 export function convertControlDateToDate(
   controlValue: DateControlFormat

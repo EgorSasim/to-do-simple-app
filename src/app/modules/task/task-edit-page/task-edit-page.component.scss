@@ -1,0 +1,36 @@
+.task-edit-page {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.2rem;
+}
+
+.task-edit-page-controls-wrap {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+}
+
+.task-edit-page-control {
+  display: block;
+  width: 100%;
+}
+
+.task-edit-page-footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 6.4rem;
+}
+
+.task-edit-page-footer__control {
+  display: block;
+  flex: 1;
+}
+
+.task-edit-page__control-error {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: red;
+}

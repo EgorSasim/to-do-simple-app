@@ -1,1 +1,87 @@
-<p>task-edit-page works!</p>
+@if (formGroup) { @let controls = formGroup.controls;
+<div class="task-edit-page">
+  @let nameControl = controls.name;
+  <app-input
+    class="task-edit-page-control"
+    [placeHolder]="'Task name'"
+    [control]="nameControl"
+  ></app-input>
+  <textarea
+    class="task-edit-page-control"
+    type="text"
+    placeholder="Task description(optional)"
+    [formControl]="controls.description"
+  ></textarea>
+
+  <div class="task-edit-page-controls-wrap">
+    <div>
+      <label>Start date</label>
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              [formControl]="controls.startDate"
+            />
+            <button
+              class="btn btn-outline-secondary bi bi-calendar3"
+              (click)="d.toggle()"
+              type="button"
+            >
+              &#8942;
+            </button>
+          </div>
+        </div>
+      </form>
+      @if (formGroup.errors?.['incompatibleDates']) {
+      <div class="task-edit-page__control-error">
+        {{ formGroup.errors | formError }}
+      </div>
+      }
+    </div>
+    <div>
+      <label>End date</label>
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="yyyy-mm-dd"
+              name="dp"
+              ngbDatepicker
+              #d2="ngbDatepicker"
+              [formControl]="controls.endDate"
+            />
+            <button
+              class="btn btn-outline-secondary bi bi-calendar3"
+              (click)="d2.toggle()"
+              type="button"
+            >
+              &#8942;
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="task-edit-page-footer">
+    <button
+      class="task-edit-page-footer__control btn btn-danger"
+      (click)="revert()"
+    >
+      Revert
+    </button>
+    <button
+      class="task-edit-page-footer__control btn btn-primary"
+      (click)="save()"
+    >
+      Save
+    </button>
+  </footer>
+</div>
+
+}

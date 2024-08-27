@@ -14,14 +14,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskCreateModalComponent } from '../task-create-modal/task-create-modal.component';
-import { TaskCreateModal } from '../task-create-modal/task-create-modal.typings';
 import { convertControlDateToDate } from '../../../validators/validators.helpers';
 
 @Component({
   selector: 'app-task-page',
   standalone: true,
   imports: [TaskListComponent, CommonModule, TaskCreateModalComponent],
-  providers: [TaskService],
+  providers: [],
   templateUrl: './task-page.component.html',
   styleUrl: './task-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,7 +33,6 @@ export class TaskPageComponent implements AfterViewInit {
   constructor(
     private taskService: TaskService,
     private modalService: NgbModal,
-    private changeDetectorRef: ChangeDetectorRef,
     private destroyRef: DestroyRef
   ) {}
 

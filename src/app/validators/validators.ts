@@ -5,8 +5,8 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
-import { DateControlFormat } from './validators.typings';
 import { convertControlDateToDate } from './validators.helpers';
+import { DateControlFormat } from '../modules/task/types/task.typings';
 
 export function incompatibleDatesValidator(
   firstDateControlName: string,
