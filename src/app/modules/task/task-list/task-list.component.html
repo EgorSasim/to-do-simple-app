@@ -1,10 +1,22 @@
-<div class="task-list">
-  @for (task of taskList(); track task.id) {
-  <app-task-item
-    class="task-list-item"
-    [item]="task"
-    (removeTaskEmit)="removeTask($event)"
-    (completeTaskEmit)="completeTask($event)"
-  ></app-task-item>
+<div ngbAccordion class="task-list" [closeOthers]="true">
+  @for(task of taskList(); track task.id) {
+  <div ngbAccordionItem [collapsed]="true">
+    <div ngbAccordionHeader class="task-list-item-header">
+      <app-task-item
+        class="task-list-item"
+        [item]="task"
+        (removeTaskEmit)="removeTask($event)"
+        (completeTaskEmit)="completeTask($event)"
+      ></app-task-item>
+      <button ngbAccordionButton class="task-list-item-collapse"></button>
+    </div>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          {{ task.description }}
+        </ng-template>
+      </div>
+    </div>
+  </div>
   }
 </div>

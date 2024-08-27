@@ -4,3 +4,18 @@
   flex-direction: column;
   row-gap: 1.2rem;
 }
+
+.task-list-item-header {
+  display: flex;
+}
+
+.task-list-item {
+  flex: 1;
+}
+
+.task-list-item-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2%;
+}

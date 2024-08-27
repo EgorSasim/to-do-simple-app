@@ -7,7 +7,7 @@ export const TASKS: TaskDto[] = [
     description: 'Description for Task 1',
     completed: false,
     startDate: new Date('2023-01-01'),
-    endDate: new Date('2023-01-05'),
+    endDate: new Date('2023-11-05'),
   },
   {
     id: 2,

@@ -1,23 +1,34 @@
 @let taskItem = item();
-<div
-  class="task-item"
-  [class.mod-completed]="taskItem.completed"
-  (click)="navigateTaskEditPage()"
->
+<div class="task-item" [class.mod-completed]="taskItem.completed">
   <section class="task-item-name">
     {{ taskItem.name }}
   </section>
 
+  <section>
+    {{ taskItem.startDate | date : "yyyy/L/dd" }} -
+    {{ taskItem.endDate | date : "yyyy/L/dd" }}
+  </section>
+
   <section class="task-item-controls">
     <button
-      class="btn btn-success"
+      class="btn btn-success task-item-control"
       [style.disabled]="taskItem.completed"
-      (click)="completeTask($event, taskItem.id)"
+      (click)="completeTask($event, taskItem.id, taskItem.completed)"
     >
-      complete
+      @if (taskItem.completed) { refresh } @else { complete }
     </button>
-    <button class="btn btn-danger" (click)="removeTask($event, taskItem.id)">
+
+    <button
+      class="btn btn-danger task-item-control"
+      (click)="removeTask($event, taskItem.id)"
+    >
       remove
+    </button>
+    <button
+      class="btn btn-primary task-item-control"
+      (click)="navigateTaskEditPage($event, taskItem.id)"
+    >
+      edit
     </button>
   </section>
 </div>

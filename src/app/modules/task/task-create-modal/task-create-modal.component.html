@@ -37,6 +37,11 @@
           </div>
         </div>
       </form>
+      @if (formGroup.errors?.['incompatibleDates']) {
+      <div class="task-create-modal__control-error">
+        {{ formGroup.errors | formError }}
+      </div>
+      }
     </div>
     <div>
       <label>End date</label>

@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskCreateModalComponent } from '../task-create-modal/task-create-modal.component';
 import { TaskCreateModal } from '../task-create-modal/task-create-modal.typings';
+import { convertControlDateToDate } from '../../../validators/validators.helpers';
 
 @Component({
   selector: 'app-task-page',
@@ -57,7 +58,16 @@ export class TaskPageComponent implements AfterViewInit {
       })
       .closed.pipe(
         filter(Boolean),
-        switchMap((task: TaskCreateModal) => this.taskService.createTask(task))
+        switchMap((task) => {
+          console.log('task: ', task);
+          if (task.startDate) {
+            task.startDate = convertControlDateToDate(task.startDate);
+          }
+          if (task.endDate) {
+            task.endDate = convertControlDateToDate(task.endDate);
+          }
+          return this.taskService.createTask(task);
+        })
       )
       .subscribe();
   }
@@ -66,7 +76,12 @@ export class TaskPageComponent implements AfterViewInit {
     this.taskService.removeTask(taskId).subscribe();
   }
 
-  public completeTask(taskId: TaskItem['id']): void {
-    this.taskService.editTask({ id: taskId, completed: true }).subscribe();
+  public completeTask(taskState: {
+    taskId: TaskItem['id'];
+    isCompleted: TaskItem['completed'];
+  }): void {
+    this.taskService
+      .editTask({ id: taskState.taskId, completed: !taskState.isCompleted })
+      .subscribe();
   }
 }

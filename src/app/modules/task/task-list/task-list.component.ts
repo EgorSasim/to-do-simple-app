@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { TaskItem } from '../types/task.typings';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [TaskItemComponent],
+  imports: [TaskItemComponent, NgbAccordionModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,7 +20,10 @@ import { TaskItem } from '../types/task.typings';
 export class TaskListComponent {
   public taskList = input<TaskItem[]>();
   public removeTaskEmit = output<TaskItem['id']>();
-  public completeTaskEmit = output<TaskItem['id']>();
+  public completeTaskEmit = output<{
+    taskId: TaskItem['id'];
+    isCompleted: TaskItem['completed'];
+  }>();
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
@@ -31,7 +35,12 @@ export class TaskListComponent {
     this.removeTaskEmit.emit(taskId);
   }
 
-  public completeTask(taskId: TaskItem['id']): void {
-    this.completeTaskEmit.emit(taskId);
+  public completeTask(taskState: {
+    taskId: TaskItem['id'];
+    isCompleted: boolean;
+  }): void {
+    this.completeTaskEmit.emit({
+      ...taskState,
+    });
   }
 }

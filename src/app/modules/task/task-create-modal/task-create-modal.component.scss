@@ -29,3 +29,9 @@
   display: block;
   flex: 1;
 }
+
+.task-create-modal__control-error {
+  font-size: 0.8rem;
+  font-style: italic;
+  color: red;
+}

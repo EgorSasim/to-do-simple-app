@@ -13,4 +13,11 @@ export const routes: Routes = [
         (c) => c.TaskPageComponent
       ),
   },
+  {
+    path: 'task-edit-page/:id',
+    loadComponent: () =>
+      import('./modules/task/task-edit-page/task-edit-page.component').then(
+        (c) => c.TaskEditPageComponent
+      ),
+  },
 ];
