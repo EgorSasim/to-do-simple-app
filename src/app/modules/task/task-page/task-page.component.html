@@ -1,11 +1,17 @@
-@if (tasks$ | async; as tasks) {
+<header class="task-page-component-header">
+  <h2>To Do Simple App</h2>
+</header>
+
+@if (tasks$ | async; as tasks) { @if(tasks.length) {
 <app-task-list
   class="task-page-list"
   [taskList]="tasks"
   (removeTaskEmit)="removeTask($event)"
   (completeTaskEmit)="completeTask($event)"
 ></app-task-list>
-}
+} @else {
+<h3 class="task-page-no-tasks">No created tasks yet{{ "(" }}</h3>
+} }
 
 <div class="task-page-add-wrapper">
   <button

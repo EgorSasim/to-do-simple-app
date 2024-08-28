@@ -1,4 +1,12 @@
 @if (formGroup) { @let controls = formGroup.controls;
+<header class="task-page-header">
+  <button
+    class="btn btn-primary task-page-navigate-back"
+    (click)="goToTaskPage()"
+  >
+    &#8672;
+  </button>
+</header>
 <div class="task-edit-page">
   @let nameControl = controls.name;
   <app-input

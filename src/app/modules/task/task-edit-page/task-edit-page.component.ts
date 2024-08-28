@@ -58,8 +58,12 @@ export class TaskEditPageComponent {
     this.taskService
       .editTask(this.formGroup.value as TaskItem)
       .subscribe(() => {
-        this.router.navigate(['task-page']);
+        this.goToTaskPage();
       });
+  }
+
+  public goToTaskPage(): void {
+    this.router.navigate(['task-page']);
   }
 
   private handleRouteIdChange(): void {
