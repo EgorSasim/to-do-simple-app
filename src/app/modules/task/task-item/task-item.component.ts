@@ -1,20 +1,17 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
   input,
   output,
-  Output,
 } from '@angular/core';
 import { TaskItem } from '../types/task.typings';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { ControlDatePipe } from '../../../pipes/date/control-date.pipe';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, ControlDatePipe],
+  imports: [CommonModule],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

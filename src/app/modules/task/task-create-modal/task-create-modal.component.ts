@@ -3,13 +3,14 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   NgbActiveModal,
+  NgbDateAdapter,
+  NgbDateNativeAdapter,
   NgbDatepickerModule,
 } from '@ng-bootstrap/ng-bootstrap';
+import { FormErrorPipe } from '../../../pipes/form-error/form-error.pipe';
+import { InputComponent } from '../../common/input/input.component';
 import { TaskCreateModalBuilder } from './task-create-modal.builder';
 import { TaskCreateModalForm } from './task-create-modal.typings';
-import { InputComponent } from '../../common/input/input.component';
-import { FormErrorCode } from '../../../pipes/form-error/form-error.typings';
-import { FormErrorPipe } from '../../../pipes/form-error/form-error.pipe';
 
 @Component({
   selector: 'app-task-create-modal',
@@ -22,7 +23,10 @@ import { FormErrorPipe } from '../../../pipes/form-error/form-error.pipe';
     InputComponent,
     FormErrorPipe,
   ],
-  providers: [TaskCreateModalBuilder],
+  providers: [
+    TaskCreateModalBuilder,
+    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter },
+  ],
   templateUrl: './task-create-modal.component.html',
   styleUrl: './task-create-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

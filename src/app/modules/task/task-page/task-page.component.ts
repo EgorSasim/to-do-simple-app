@@ -14,7 +14,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TaskCreateModalComponent } from '../task-create-modal/task-create-modal.component';
-import { convertControlDateToDate } from '../../../validators/validators.helpers';
 
 @Component({
   selector: 'app-task-page',
@@ -57,12 +56,11 @@ export class TaskPageComponent implements AfterViewInit {
       .closed.pipe(
         filter(Boolean),
         switchMap((task) => {
-          console.log('task: ', task);
           if (task.startDate) {
-            task.startDate = convertControlDateToDate(task.startDate);
+            task.startDate = task.startDate;
           }
           if (task.endDate) {
-            task.endDate = convertControlDateToDate(task.endDate);
+            task.endDate = task.endDate;
           }
           return this.taskService.createTask(task);
         })

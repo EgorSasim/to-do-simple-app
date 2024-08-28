@@ -5,14 +5,8 @@ export interface TaskItem {
   name: string;
   description?: string;
   completed: boolean;
-  startDate?: DateControlFormat;
-  endDate?: DateControlFormat;
+  startDate?: Date;
+  endDate?: Date;
 }
-
-export type DateControlFormat = {
-  day: number;
-  month: number;
-  year: number;
-};
 
 export type TaskItemForm = ConvertToForm<TaskItem>;

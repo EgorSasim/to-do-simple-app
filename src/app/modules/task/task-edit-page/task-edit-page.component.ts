@@ -6,7 +6,11 @@ import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskItem, TaskItemForm } from '../types/task.typings';
 import { TaskEditPageBuilder } from './task-edit.page.builder';
 import { InputComponent } from '../../common/input/input.component';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDateAdapter,
+  NgbDateNativeAdapter,
+  NgbDatepickerModule,
+} from '@ng-bootstrap/ng-bootstrap';
 import { JsonPipe } from '@angular/common';
 import { FormErrorPipe } from '../../../pipes/form-error/form-error.pipe';
 
@@ -23,7 +27,10 @@ import { FormErrorPipe } from '../../../pipes/form-error/form-error.pipe';
   ],
   templateUrl: './task-edit-page.component.html',
   styleUrl: './task-edit-page.component.scss',
-  providers: [TaskEditPageBuilder],
+  providers: [
+    TaskEditPageBuilder,
+    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskEditPageComponent {
@@ -45,11 +52,9 @@ export class TaskEditPageComponent {
 
   public save(): void {
     if (this.formGroup.invalid) {
-      console.log('form group: ', this.formGroup);
       this.formGroup.markAllAsTouched();
       return;
     }
-    console.log('save click');
     this.taskService
       .editTask(this.formGroup.value as TaskItem)
       .subscribe(() => {
@@ -65,7 +70,6 @@ export class TaskEditPageComponent {
       )
       .subscribe((task) => {
         this.formGroup = this.taskEditPageBuilder.createFormGroup(task);
-        console.log('form group: ', this.formGroup.value);
         this.formGroupInitialValue = this.formGroup.value as TaskItem;
       });
   }

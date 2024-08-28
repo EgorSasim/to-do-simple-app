@@ -13,7 +13,7 @@ export class TaskApiService {
   }
 
   public getTaskById(id: TaskDto['id']): Observable<TaskDto> {
-    return of(TASKS.find((task) => (task.id = id)));
+    return of(TASKS.find((task) => task.id === id));
   }
 
   public createTask(task: Omit<TaskDto, 'id'>): Observable<TaskDto['id']> {
@@ -27,7 +27,7 @@ export class TaskApiService {
   public removeTask(id: TaskDto['id']): Observable<void> {
     const removedTaskIndex = TASKS.findIndex((task) => task.id === id);
     TASKS.splice(removedTaskIndex, 1);
-    return of();
+    return of(null);
   }
 
   public editTask(task: Partial<TaskDto> & { id: number }): Observable<void> {
@@ -37,6 +37,6 @@ export class TaskApiService {
     if (~taskToUpdateIndex) {
       TASKS[taskToUpdateIndex] = { ...TASKS[taskToUpdateIndex], ...task };
     }
-    return of();
+    return of(null);
   }
 }
