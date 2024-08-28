@@ -1,42 +1,41 @@
 import { Injectable } from '@angular/core';
-import { TaskPageComponent } from '../../modules/task/task-page/task-page.component';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { Observable } from 'rxjs';
 import { TaskDto } from './task-api.typings';
-import { TASKS } from './task.constants';
-import { Observable, of } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TaskApiService {
+  private readonly storeName: string = 'tasks';
+  constructor(private ngxIndexedDBService: NgxIndexedDBService) {}
+
   public getTasks(): Observable<TaskDto[]> {
-    return of(TASKS);
+    return this.ngxIndexedDBService.getAll(this.storeName);
   }
 
   public getTaskById(id: TaskDto['id']): Observable<TaskDto> {
-    return of(TASKS.find((task) => task.id === id));
+    return this.ngxIndexedDBService.getByID(
+      this.storeName,
+      id
+    ) as Observable<TaskDto>;
   }
 
-  public createTask(task: Omit<TaskDto, 'id'>): Observable<TaskDto['id']> {
-    const lastIndex = Math.max(...TASKS.map((task) => task.id));
-    const id = isFinite(lastIndex) ? lastIndex + 1 : 0;
-    const createdTask: TaskDto = { ...task, id: id };
-    TASKS.push(createdTask);
-    return of(id);
+  public createTask(task: Omit<TaskDto, 'id'>): Observable<TaskDto> {
+    return this.ngxIndexedDBService.add(
+      this.storeName,
+      task
+    ) as Observable<TaskDto>;
   }
 
-  public removeTask(id: TaskDto['id']): Observable<void> {
-    const removedTaskIndex = TASKS.findIndex((task) => task.id === id);
-    TASKS.splice(removedTaskIndex, 1);
-    return of(null);
+  public removeTask(id: TaskDto['id']): Observable<number[]> {
+    return this.ngxIndexedDBService.bulkDelete(this.storeName, [id]);
   }
 
-  public editTask(task: Partial<TaskDto> & { id: number }): Observable<void> {
-    const taskToUpdateIndex = TASKS.findIndex(
-      (taskItem) => taskItem.id === task.id
-    );
-    if (~taskToUpdateIndex) {
-      TASKS[taskToUpdateIndex] = { ...TASKS[taskToUpdateIndex], ...task };
-    }
-    return of(null);
+  public editTask(
+    task: Partial<TaskDto> & { id: number }
+  ): Observable<TaskDto> {
+    return this.ngxIndexedDBService.update(
+      this.storeName,
+      task
+    ) as Observable<TaskDto>;
   }
 }

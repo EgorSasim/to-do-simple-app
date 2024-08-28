@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { TaskService } from '../services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, switchMap } from 'rxjs';
@@ -41,6 +45,7 @@ export class TaskEditPageComponent {
     private taskService: TaskService,
     private taskEditPageBuilder: TaskEditPageBuilder,
     private activatedRoute: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef,
     private router: Router
   ) {
     this.handleRouteIdChange();
@@ -75,6 +80,7 @@ export class TaskEditPageComponent {
       .subscribe((task) => {
         this.formGroup = this.taskEditPageBuilder.createFormGroup(task);
         this.formGroupInitialValue = this.formGroup.value as TaskItem;
+        this.changeDetectorRef.markForCheck();
       });
   }
 }

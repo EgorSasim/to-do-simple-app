@@ -38,7 +38,8 @@ export class TaskPageComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     this.tasks$
       .pipe(
-        tap(() => this.taskListComponent.triggerChangeDetection()),
+        filter((tasks) => !!tasks.length),
+        tap(() => this.taskListComponent?.triggerChangeDetection()),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
@@ -77,7 +78,10 @@ export class TaskPageComponent implements AfterViewInit {
     isCompleted: TaskItem['completed'];
   }): void {
     this.taskService
-      .editTask({ id: taskState.taskId, completed: !taskState.isCompleted })
+      .completeTask({
+        taskId: taskState.taskId,
+        isCompleted: !taskState.isCompleted,
+      })
       .subscribe();
   }
 }
